@@ -1,5 +1,5 @@
 @import "tailwindcss";
-/*@import "tw-animate-css";*/
+@import "tw-animate-css";
 
 /* Migrated Tailwind configuration from tailwind.config.ts to CSS using @theme */
 @theme {
@@ -77,6 +77,12 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .animate-accordion-down {
+    animation: accordion-down 0.2s ease-out;
+  }
+  .animate-accordion-up {
+    animation: accordion-up 0.2s ease-out;
   }
 }
 
@@ -284,6 +290,25 @@ body {
     background-position: 100% 50%;
   }
 }
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
 
 /* New background class using the provided image */
 .bg-curves-hero {

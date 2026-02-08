@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Float, Text3D, MeshDistortMaterial } from "@react-three/drei"
-import { useRef } from "react"
+import { useRef, Suspense } from "react"
 import { useFrame } from "@react-three/fiber"
 import type * as THREE from "three"
 
@@ -335,36 +335,48 @@ function FloatingCode() {
   )
 }
 
+function SceneContent() {
+  return (
+    <>
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[10, 10, 5]} intensity={1.2} />
+      <pointLight position={[-10, -10, -5]} intensity={0.7} />
+
+      {/* Desk */}
+      <mesh position={[0, -2.5, 0]}>
+        <boxGeometry args={[6, 0.2, 3]} />
+        <meshStandardMaterial color="#4a4a4a" />
+      </mesh>
+
+      {/* Setup Components */}
+      <VSCodeMonitor />
+      <Keyboard />
+      <Mouse />
+      <PCCase />
+      <Speakers />
+      <Suspense fallback={null}>
+        <FloatingCode />
+      </Suspense>
+
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 4}
+        autoRotate
+        autoRotateSpeed={0.5}
+      />
+    </>
+  )
+}
+
 export default function DeveloperSetup3D() {
   return (
     <div className="w-full h-full bg-slate-900 rounded-xl border-2 border-blue-500/30 shadow-lg shadow-blue-500/10">
       <Canvas camera={{ position: [5, 2, 5], fov: 60 }}>
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[10, 10, 5]} intensity={1.2} />
-        <pointLight position={[-10, -10, -5]} intensity={0.7} />
-
-        {/* Desk */}
-        <mesh position={[0, -2.5, 0]}>
-          <boxGeometry args={[6, 0.2, 3]} />
-          <meshStandardMaterial color="#4a4a4a" />
-        </mesh>
-
-        {/* Setup Components */}
-        <VSCodeMonitor />
-        <Keyboard />
-        <Mouse />
-        <PCCase />
-        <Speakers />
-        <FloatingCode />
-
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 4}
-          autoRotate
-          autoRotateSpeed={0.5}
-        />
+        <Suspense fallback={null}>
+          <SceneContent />
+        </Suspense>
       </Canvas>
     </div>
   )

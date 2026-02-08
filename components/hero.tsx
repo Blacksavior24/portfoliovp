@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Github, Linkedin, Mail, Download } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 import dynamic from "next/dynamic"
+import { Component, type ReactNode } from "react"
 
 // Importar el componente 3D dinámicamente para evitar problemas de SSR
 const DeveloperSetup3D = dynamic(() => import("./developer-setup-3d"), {
@@ -14,6 +15,34 @@ const DeveloperSetup3D = dynamic(() => import("./developer-setup-3d"), {
     </div>
   ),
 })
+
+// Error Boundary para el componente 3D - evita que errores de WebGL/Three.js rompan la página
+class Scene3DErrorBoundary extends Component<
+  { children: ReactNode; fallback?: ReactNode },
+  { hasError: boolean }
+> {
+  state = { hasError: false }
+
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        this.props.fallback ?? (
+          <div className="w-full h-full rounded-2xl flex items-center justify-center bg-slate-900/80 border-2 border-purple-500/20">
+            <div className="text-center text-slate-400 p-4">
+              <p className="font-medium">Escena 3D no disponible</p>
+              <p className="text-sm mt-1">Tu navegador podría no soportar WebGL</p>
+            </div>
+          </div>
+        )
+      )
+    }
+    return this.props.children
+  }
+}
 
 export default function Hero() {
   const { t } = useLanguage()
@@ -114,7 +143,7 @@ export default function Hero() {
                   asChild
                   className="hover:bg-emerald-500/20 hover:text-emerald-400 transition-all duration-300 transform hover:scale-110 w-12 h-12 border-2 border-emerald-400/40 hover:border-emerald-400 text-white rounded-full backdrop-blur-sm shadow-lg"
                 >
-                  <a href="mailto:emerson@example.com">
+                  <a href="mailto:emersonevillataq@gmail.com">
                     <Mail className="h-6 w-6" />
                   </a>
                 </Button>
@@ -124,7 +153,9 @@ export default function Hero() {
             <div className="flex items-center justify-center">
               <div className="w-full max-w-2xl h-[400px] lg:h-[600px] relative">
                 <div className="border-purple-400/20 rounded-2xl p-4 h-full bg-slate-900/70 backdrop-blur-md shadow-2xl">
-                  <DeveloperSetup3D />
+                  <Scene3DErrorBoundary>
+                    <DeveloperSetup3D />
+                  </Scene3DErrorBoundary>
                 </div>
 
                 {/* Professional floating tech badges */}

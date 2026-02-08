@@ -29,7 +29,7 @@ export default function Footer() {
                 asChild
                 className="rounded-full p-2 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300 transform hover:scale-110 shadow-md"
               >
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/blacksavior24" target="_blank" rel="noopener noreferrer">
                   <Github className="h-5 w-5" />
                 </a>
               </Button>
@@ -39,7 +39,7 @@ export default function Footer() {
                 asChild
                 className="rounded-full p-2 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300 transform hover:scale-110 shadow-md"
               >
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/emerson-villata-1b09a01aa/" target="_blank" rel="noopener noreferrer">
                   <Linkedin className="h-5 w-5" />
                 </a>
               </Button>
@@ -49,7 +49,7 @@ export default function Footer() {
                 asChild
                 className="rounded-full p-2 text-slate-300 hover:bg-slate-800 hover:text-white transition-all duration-300 transform hover:scale-110 shadow-md"
               >
-                <a href="mailto:emerson.villata@example.com">
+                <a href="mailto:emersonevillataq@gmail.com">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>

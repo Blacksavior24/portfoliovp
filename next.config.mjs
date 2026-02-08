@@ -1,28 +1,17 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
-    unoptimized: true,
-  },
-  experimental: {
-    // Habilitar características estables de Next.js 15
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.jsdelivr.net",
+        pathname: "/**",
       },
-    },
+    ],
   },
-  // Optimizaciones de rendimiento para Next.js 15
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-}
+};
 
-export default nextConfig
+export default nextConfig;
